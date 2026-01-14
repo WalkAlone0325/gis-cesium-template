@@ -34,3 +34,8 @@ coverage
 
 # Vitest
 __screenshots__/
+
+# auto created
+auto-import.d.ts
+components.d.ts
+.eslintrc-auto-import.json
