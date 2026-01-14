@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import Layout from './layout/Layout.vue'
 
 </script>
 
 <template>
-  <Layout>
-    11
-  </Layout>
+  <div class="app-page">
+    <RouterView />
+  </div>
 </template>

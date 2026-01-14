@@ -1,4 +1,3 @@
-import { onMounted, onUnmounted, shallowRef, useTemplateRef } from 'vue'
 import { isElement } from 'lodash-es'
 import * as echarts from 'echarts/core'
 import { BarChart, LineChart } from 'echarts/charts'
