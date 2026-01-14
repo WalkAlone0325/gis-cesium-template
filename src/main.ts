@@ -4,6 +4,7 @@ import '@/assets/styles/index.scss'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import autofit from 'autofit.js'
 
 import App from './App.vue'
 import router from './router'
@@ -14,3 +15,5 @@ app.use(createPinia())
 app.use(router)
 
 app.mount('#app')
+
+autofit.init()

@@ -4,9 +4,21 @@ import Layout from '@/layout/Layout.vue'
 </script>
 
 <template>
-  <div>
+  <div class="h-full">
     <Layout>
-      11
+      <template #left>
+        <Widget01 />
+        <Widget01 />
+        <Widget01 />
+      </template>
+      <template #right>
+        <Widget01 />
+        <Widget01 />
+        <Widget01 />
+      </template>
+      <template>
+        <div class="flex justify-center items-center">中间部分</div>
+      </template>
     </Layout>
   </div>
 </template>

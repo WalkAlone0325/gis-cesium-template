@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="app-page">
+  <div class="h-full">
     <RouterView />
   </div>
 </template>

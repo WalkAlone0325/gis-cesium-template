@@ -32,11 +32,11 @@ import Header from './Header.vue'
   .layout-main {
     position: relative;
     width: 100%;
-    height: calc(100% - 80px);
+    height: calc(100% - $header-height);
     background-color: $main-bg-color;
   }
 
-  .layout-left {
+  .main-left {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -44,28 +44,40 @@ import Header from './Header.vue'
     display: grid;
     grid-template-rows: repeat(3, calc((100% - 40px) / 3));
     grid-gap: 20px;
-    width: 400px;
+    width: $panel-width;
     height: calc(100% - 20px);
     z-index: 999;
   }
 
-  .layout-right {
+  .main-right {
     position: absolute;
     top: 10px;
     right: 10px;
     box-sizing: border-box;
-    display: grid;
-    grid-template-rows: repeat(3, calc((100% - 40px) / 3));
-    grid-gap: 20px;
-    width: 400px;
+    // display: grid;
+    // grid-template-rows: repeat(3, calc((100% - 40px) / 3));
+    // grid-gap: 20px;
+    width: $panel-width;
     height: calc(100% - 20px);
+    overflow-y: auto;
+    overflow-x: hidden;
     z-index: 999;
+
+    // 可选：自定义滚动条样式
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 3px;
+    }
   }
 
   .main-bottom {
     position: absolute;
     bottom: 10px;
-    left: calc(400px + 20px);
+    left: calc($panel-width + 20px);
     box-sizing: border-box;
     width: calc(100% - 840px);
     height: 300px;
