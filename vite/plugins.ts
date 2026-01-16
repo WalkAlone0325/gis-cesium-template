@@ -5,6 +5,7 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import Compression from 'vite-plugin-compression'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
+import Cesium from 'vite-plugin-cesium'
 import type { PluginOption } from 'vite'
 
 export default (_mode?: string, _command?: string): PluginOption[] => {
@@ -27,6 +28,7 @@ export default (_mode?: string, _command?: string): PluginOption[] => {
       dts: 'types/components.d.ts',
       resolvers: [],
     }),
+    Cesium(),
     Compression({
       algorithm: 'gzip',
       deleteOriginFile: false,

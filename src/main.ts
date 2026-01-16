@@ -16,4 +16,4 @@ app.use(router)
 
 app.mount('#app')
 
-autofit.init()
+// autofit.init()

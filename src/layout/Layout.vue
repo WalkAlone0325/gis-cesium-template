@@ -63,7 +63,6 @@ import Header from './Header.vue'
     overflow-x: hidden;
     z-index: 999;
 
-    // 可选：自定义滚动条样式
     &::-webkit-scrollbar {
       width: 4px;
     }
@@ -90,7 +89,7 @@ import Header from './Header.vue'
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 9;
 
     &::before {
       content: '';
@@ -101,7 +100,7 @@ import Header from './Header.vue'
       width: 100%;
       height: 100%;
       pointer-events: none;
-      background: radial-gradient(circle, transparent 30%, #0F151F 70%);
+      background: radial-gradient(circle, transparent 20%, #0c3753 80%);
     }
   }
 }

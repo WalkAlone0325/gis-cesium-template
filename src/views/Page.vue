@@ -16,11 +16,7 @@ import Layout from '@/layout/Layout.vue'
         <Widget01 />
         <Widget01 />
       </template>
-      <template>
-        <div class="flex justify-center items-center">中间部分</div>
-      </template>
+      <CesiumViewer />
     </Layout>
   </div>
 </template>
-
-<style lang="scss" scoped></style>
