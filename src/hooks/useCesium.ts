@@ -3,7 +3,10 @@ import * as Cesium from 'cesium'
 
 export interface ViewOptions {
   center: [number, number],
-  height: number
+  height: number,
+  heading?: number,
+  pitch?: number,
+  roll?: number
 }
 export interface SettingOptions {
   debugShowFramesPerSecond?: boolean
@@ -17,6 +20,7 @@ export const useCesium = (
 ) => {
   const viewer: ShallowRef<Cesium.Viewer | null> = ref(null)
   const isReady = ref(false)
+  const enableCameraListener = ref(false)
 
   const defaultOptions: Cesium.Viewer.ConstructorOptions = {
     geocoder: false, // 关闭地理编码搜索
@@ -49,9 +53,9 @@ export const useCesium = (
         viewer.value.camera.setView({
           destination: Cesium.Cartesian3.fromDegrees(...view.center, view.height),
           orientation: {
-            heading: Cesium.Math.toRadians(0),
-            pitch: Cesium.Math.toRadians(-90),
-            roll: 0.0
+            heading: Cesium.Math.toRadians(view.heading || 0),
+            pitch: Cesium.Math.toRadians(view.pitch || -90),
+            roll: view.roll || 0.0
           }
         })
       }
@@ -67,6 +71,10 @@ export const useCesium = (
 
   onMounted(() => {
     initViewer()
+    // 监听相机
+    if (enableCameraListener.value) {
+      cameraListener()
+    }
   })
 
   onUnmounted(() => {
@@ -102,8 +110,28 @@ export const useCesium = (
       position: viewer.value.camera.positionCartographic,
       heading: viewer.value.camera.heading,
       pitch: viewer.value.camera.pitch,
-      roll: viewer.value.camera.roll
+      roll: viewer.value.camera.roll,
+      direction: viewer.value.camera.direction,
     }
+  }
+
+  // 相机监听
+  const cameraListener = () => {
+    if (!viewer.value) return
+    viewer.value.camera.changed.addEventListener(() => {
+      console.log('🚀:>> ', '相机开始移动')
+    })
+    viewer.value.camera.moveEnd.addEventListener(() => {
+      const viewRectangle = viewer.value?.camera.computeViewRectangle()
+      console.log('🚀:>> ', '相机停止移动', viewRectangle)
+      if (Cesium.defined(viewRectangle)) {
+        const west = Cesium.Math.toDegrees(viewRectangle.west).toFixed(2)
+        const east = Cesium.Math.toDegrees(viewRectangle.east).toFixed(2)
+        const south = Cesium.Math.toDegrees(viewRectangle.south).toFixed(2)
+        const north = Cesium.Math.toDegrees(viewRectangle.north).toFixed(2)
+        console.log(`当前视域范围: ${west}°E-${east}°E, ${south}°N-${north}°N`)
+      }
+    })
   }
 
   // 平滑到指定位置
@@ -130,6 +158,7 @@ export const useCesium = (
     const dataSource = await Cesium.GeoJsonDataSource.load(geoJson, options)
     viewer.value.dataSources.add(dataSource)
     flyTo && viewer.value.flyTo(dataSource, { duration: 3 })
+    return dataSource
   }
 
   // 裁剪地图
@@ -168,6 +197,30 @@ export const useCesium = (
     viewer.value.screenSpaceEventHandler.destroy()
   }
 
+  // 点击获取坐标
+  const getClickPosition = () => {
+    if (!viewer.value) return
+    let result
+    addEvent((e: { position: Cesium.Cartesian2 }) => {
+      const position = viewer.value!.scene.pickPosition(e.position)
+
+      // 判断坐标是否有效
+      if (Cesium.defined(position)) {
+        // 笛卡尔坐标转弧度坐标
+        const cartographic = Cesium.Cartographic.fromCartesian(position)
+        // 弧度转度数并保留6位小数
+        const longitude = Cesium.Math.toDegrees(cartographic.longitude).toFixed(6)
+        const latitude = Cesium.Math.toDegrees(cartographic.latitude).toFixed(6)
+        const height = cartographic.height.toFixed(2)
+        result = { longitude, latitude, height }
+        console.log('🚀:>> ', `经度: ${longitude}, 纬度: ${latitude}, 高度: ${height}米`)
+      } else {
+        console.log('🚀:>> ', '无法获取有效坐标（可能点击了天空或地形外区域）')
+      }
+    })
+    return result
+  }
+
   // 禁用/启用相机交互
   const changeCameraController = () => {
     if (!viewer.value) return
@@ -178,6 +231,7 @@ export const useCesium = (
   return {
     viewer,
     isReady,
+    enableCameraListener,
     Cesium,
     addEntity,
     addEntities,
@@ -190,6 +244,7 @@ export const useCesium = (
     addEvent,
     removeEvent,
     destroyEvents,
-    changeCameraController
+    changeCameraController,
+    getClickPosition
   }
 }

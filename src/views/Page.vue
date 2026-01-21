@@ -12,9 +12,9 @@ import Layout from '@/layout/Layout.vue'
         <Widget01 />
       </template>
       <template #right>
+        <!-- <Widget01 />
         <Widget01 />
-        <Widget01 />
-        <Widget01 />
+        <Widget01 /> -->
       </template>
       <CesiumViewer />
     </Layout>

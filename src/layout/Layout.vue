@@ -100,7 +100,7 @@ import Header from './Header.vue'
       width: 100%;
       height: 100%;
       pointer-events: none;
-      background: radial-gradient(circle, transparent 20%, #0c3753 80%);
+      // background: radial-gradient(circle, transparent 20%, #0c3753 80%);
     }
   }
 }
