@@ -9,13 +9,7 @@ export default defineConfig(({ mode, command }) => {
 
   return {
     base: command === 'build' ? env.VITE_APP_BASE : '/',
-    css: {
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@use "@/assets/styles/variables.scss" as *;`,
-        },
-      },
-    },
+    css: {},
     plugins: createPlugins(mode, command),
     resolve: {
       alias: {

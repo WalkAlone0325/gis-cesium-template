@@ -4,19 +4,19 @@ import Header from './Header.vue'
 </script>
 
 <template>
-  <div class="layout">
+  <div class="w-full h-full bg-[var(--bg-color)]">
     <Header />
-    <div class="layout-main">
-      <div class="main-left">
+    <div class="relative w-full h-[calc(100%-var(--header-height))] bg-[var(--main-bg-color)]">
+      <div class="main-box left-3">
         <slot name="left" />
       </div>
-      <div class="main-right">
+      <div class="main-box right-3">
         <slot name="right" />
       </div>
-      <div class="main-bottom">
+      <div class="main-box" grid>
         <slot name="bottom" />
       </div>
-      <div class="main-center">
+      <div class="main">
         <slot name="default" />
       </div>
     </div>

@@ -195,22 +195,7 @@ const click = () => {
 </script>
 
 <template>
-  <div class="cesium-viewer">
-    <div class="cesium-toolbar">
-      <button @click="click">获取当前相机位置</button>
-    </div>
-    <div ref="cesiumRef" class="cesium-container"></div>
+  <div class="w-full h-full">
+    <div ref="cesiumRef" class="w-full h-full"></div>
   </div>
 </template>
-
-<style lang="scss" scoped>
-.cesium-viewer {
-  width: 100%;
-  height: 100%;
-
-  .cesium-container {
-    width: 100%;
-    height: 100%;
-  }
-}
-</style>

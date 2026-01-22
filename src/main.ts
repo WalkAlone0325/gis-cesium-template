@@ -1,6 +1,6 @@
 import 'virtual:uno.css'
 import '@unocss/reset/normalize.css'
-import '@/assets/styles/index.scss'
+import '@/assets/styles/index.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -16,4 +16,4 @@ app.use(router)
 
 app.mount('#app')
 
-// autofit.init()
+autofit.init()

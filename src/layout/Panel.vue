@@ -3,11 +3,14 @@ defineProps<{ title?: string }>()
 </script>
 
 <template>
-  <div class="layout-panel">
-    <div class="panel-header">
-      <div class="panel-header-title">{{ title }}</div>
+  <div class="relative h-full text-[#fff] bg-[#000] bg-op-20">
+    <div class="flex items-center h-[40px] bg-no-repeat bg-contain bg-[url('@/assets/images/title2@2x.png')]">
+      <div v-if="$slots.header">
+        <slot name="header" />
+      </div>
+      <div v-else class="relative top-[-2px] left-[34px] text-[15px]">{{ title }}</div>
     </div>
-    <div class="panel-body">
+    <div class="box-border hidden px-10px pb-10px h-[calc(100%-65px)]">
       <slot />
     </div>
   </div>
